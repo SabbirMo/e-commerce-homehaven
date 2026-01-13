@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "948814248202",
+    "project_id": "home-haven-2c9a3",
+    "storage_bucket": "home-haven-2c9a3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948814248202:android:73b3ea944931602291a2f3",
+        "android_client_info": {
+          "package_name": "com.example.home_haven"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApyzmeVKMk_PwUjsjv56ivGp85WslRVLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

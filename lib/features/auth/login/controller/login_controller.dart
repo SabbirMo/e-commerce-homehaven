@@ -67,21 +67,27 @@ class LoginController extends GetxController {
                 Get.offAllNamed(RouterConstant.mainScreen);
               }
             } else {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Get.snackbar('Success', 'Login Successfully');
-              });
+              ScaffoldMessenger.of(Get.context!).showSnackBar(
+                SnackBar(
+                  content: Text('Login Successfully'),
+                ),
+              );
               Get.offAllNamed(RouterConstant.mainScreen);
             }
           } catch (firestoreError) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              Get.snackbar('Success', 'Login Successfully');
-            });
+            ScaffoldMessenger.of(Get.context!).showSnackBar(
+              SnackBar(
+                content: Text('Login Successfully'),
+              ),
+            );
             Get.offAllNamed(RouterConstant.mainScreen);
           }
         } else {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            Get.snackbar('Error', 'Please verify your email');
-          });
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Text('Please verify your email'),
+            ),
+          );
           await _auth.signOut();
         }
       }
@@ -100,13 +106,18 @@ class LoginController extends GetxController {
         default:
           errorMessage = e.message ?? 'Something went wrong';
       }
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.snackbar('Error', errorMessage);
-      });
+
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
     } catch (e) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.snackbar('Error', 'An unexpected error occurred');
-      });
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('An unexpected error occurred'),
+        ),
+      );
     } finally {
       isLoading = false;
       update();
@@ -164,14 +175,13 @@ class LoginController extends GetxController {
 
         String role = doc.exists ? doc['role'] ?? 'customer' : 'customer';
 
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Get.snackbar(
-            'Success',
-            'Google login successful! Welcome ${user.displayName ?? 'User'}',
-            snackPosition: SnackPosition.TOP,
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text(
+                'Google login successful! Welcome ${user.displayName ?? 'User'}'),
             duration: Duration(seconds: 3),
-          );
-        });
+          ),
+        );
 
         if (role == 'admin') {
           Get.offAllNamed(RouterConstant.adminDashboard);
@@ -180,14 +190,12 @@ class LoginController extends GetxController {
         }
       }
     } catch (e) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.snackbar(
-          'Error',
-          'Google sign-in failed: ${e.toString()}',
-          snackPosition: SnackPosition.TOP,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Google sign-in failed: ${e.toString()}'),
           duration: Duration(seconds: 4),
-        );
-      });
+        ),
+      );
     }
   }
 }

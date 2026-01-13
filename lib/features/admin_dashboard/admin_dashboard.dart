@@ -21,10 +21,6 @@ class AdminDashboard extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
         title: const Text(
           'Admin Dashboard',
           style: TextStyle(
@@ -590,9 +586,9 @@ class AdminDashboard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Column(
         children: [
@@ -913,76 +909,52 @@ class AdminDashboard extends StatelessWidget {
   }
 
   Future<void> _performLogout() async {
+    // Close any open dialogs first
     try {
-      // Show loading
-      Get.dialog(
-        Center(
-          child: Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(color: AppColors.primary),
-                SizedBox(height: 16),
-                Text('Logging out...'),
-              ],
-            ),
-          ),
-        ),
-        barrierDismissible: false,
-      );
+      Get.back();
+    } catch (_) {}
 
-      // Sign out from Google Sign In (if user logged in with Google)
+    try {
+      // Sign out from Google Sign In silently
       try {
         final GoogleSignIn googleSignIn = GoogleSignIn();
-        if (await googleSignIn.isSignedIn()) {
-          await googleSignIn.signOut();
-        }
-      } catch (googleError) {
-        print('Google sign out error: $googleError');
-      }
+        await googleSignIn.signOut();
+      } catch (_) {}
 
       // Sign out from Firebase Auth
       await FirebaseAuth.instance.signOut();
 
-      // Small delay to ensure sign out completes
-      await Future.delayed(Duration(milliseconds: 300));
-
-      // Close loading dialog
-      Get.back();
-
-      // Navigate to login screen and clear all previous routes
-      Get.offAllNamed(RouterConstant.loginScreen);
-
-      // Show success message after navigation
-      Future.delayed(Duration(milliseconds: 500), () {
-        Get.snackbar(
-          'Success',
-          'You have been logged out successfully',
-          backgroundColor: Colors.green[100],
-          colorText: Colors.green[800],
-          duration: Duration(seconds: 2),
-          snackPosition: SnackPosition.BOTTOM,
-        );
-      });
-    } catch (e) {
-      // Close loading dialog if still open
+      // Clean up controllers
       try {
-        Get.back();
+        Get.delete<AdminProductController>(force: true);
       } catch (_) {}
 
-      // Show error message
-      Get.snackbar(
-        'Error',
-        'Failed to log out: $e',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      try {
+        Get.delete<OrdersController>(force: true);
+      } catch (_) {}
+
+      // Navigate immediately to login screen
+      await Get.offAllNamed(RouterConstant.loginScreen);
+
+      // Show success message after navigation
+      await Future.delayed(Duration(milliseconds: 500));
+
+      try {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text('Logged out successfully'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } catch (_) {}
+    } catch (e) {
+      print('Logout error: $e');
+
+      // Force navigate to login even on error
+      try {
+        await Get.offAllNamed(RouterConstant.loginScreen);
+      } catch (_) {}
     }
   }
 

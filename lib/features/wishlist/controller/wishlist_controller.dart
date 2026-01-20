@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_haven/features/home/model/home_model.dart';
 
@@ -16,10 +17,11 @@ class WishlistController extends GetxController {
   void addToWishlist(HomeModel product) {
     if (!isInWishlist(product.id)) {
       wishlistItems.add(product);
-      Get.snackbar(
-        'Added to Wishlist',
-        '${product.title} has been added to your wishlist',
-        duration: Duration(seconds: 2),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('${product.title} has been added to your wishlist'),
+          duration: Duration(seconds: 2),
+        ),
       );
     }
   }
@@ -30,10 +32,11 @@ class WishlistController extends GetxController {
     if (index != -1) {
       String productName = wishlistItems[index].title;
       wishlistItems.removeAt(index);
-      Get.snackbar(
-        'Removed from Wishlist',
-        '$productName has been removed from your wishlist',
-        duration: Duration(seconds: 2),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('$productName has been removed from your wishlist'),
+          duration: Duration(seconds: 2),
+        ),
       );
     }
   }
@@ -51,10 +54,11 @@ class WishlistController extends GetxController {
   // Clear all wishlist items
   void clearWishlist() {
     wishlistItems.clear();
-    Get.snackbar(
-      'Wishlist Cleared',
-      'All items have been removed from your wishlist',
-      duration: Duration(seconds: 2),
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        content: Text('All items have been removed from your wishlist'),
+        duration: Duration(seconds: 2),
+      ),
     );
   }
 }

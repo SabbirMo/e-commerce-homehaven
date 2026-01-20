@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:home_haven/core/util/export.dart';
 import 'package:home_haven/features/cart/model/cart_model.dart';
 import 'package:home_haven/features/home/model/home_model.dart';
 
@@ -61,10 +62,11 @@ class CartController extends GetxController {
       cartItems.add(newItem);
     }
 
-    Get.snackbar(
-      'Added to Cart',
-      '${product.title} has been added to your cart',
-      duration: Duration(seconds: 2),
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        content: Text('${product.title} has been added to your cart'),
+        duration: Duration(seconds: 2),
+      ),
     );
   }
 

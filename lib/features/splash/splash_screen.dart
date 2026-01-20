@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkUserLoginStatus() async {
-    // Show splash for at least 2 seconds
+    // Show splash for at least 2 secondsfas
     await Future.delayed(Duration(seconds: 2));
 
     // Check if user is logged in

@@ -17,7 +17,7 @@ class CustomerOrdersController extends GetxController {
   // For now, using mock data. In a real app, you'd fetch from Firebase
   void loadMockOrders() {
     isLoading.value = true;
-    
+
     // Simulate loading delay
     Future.delayed(Duration(milliseconds: 500), () {
       orders.value = [
@@ -38,7 +38,8 @@ class CustomerOrdersController extends GetxController {
             CartModel(
               id: '1',
               name: 'Modern Coffee Table',
-              image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
+              image:
+                  'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
               price: 299.99,
               originalPrice: 349.99,
               discountPercentage: '14%',
@@ -48,7 +49,8 @@ class CustomerOrdersController extends GetxController {
             CartModel(
               id: '2',
               name: 'Wireless Bluetooth Speaker',
-              image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400',
+              image:
+                  'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400',
               price: 79.99,
               originalPrice: 99.99,
               discountPercentage: '20%',
@@ -78,7 +80,8 @@ class CustomerOrdersController extends GetxController {
             CartModel(
               id: '3',
               name: 'Outdoor Patio Set',
-              image: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400',
+              image:
+                  'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400',
               price: 599.99,
               originalPrice: 699.99,
               discountPercentage: '14%',
@@ -108,7 +111,8 @@ class CustomerOrdersController extends GetxController {
             CartModel(
               id: '4',
               name: 'Smart Refrigerator',
-              image: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400',
+              image:
+                  'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400',
               price: 1299.99,
               originalPrice: 1599.99,
               discountPercentage: '19%',
@@ -118,7 +122,8 @@ class CustomerOrdersController extends GetxController {
             CartModel(
               id: '5',
               name: 'Ergonomic Office Chair',
-              image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=400',
+              image:
+                  'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=400',
               price: 349.99,
               originalPrice: 399.99,
               discountPercentage: '12%',
@@ -140,23 +145,26 @@ class CustomerOrdersController extends GetxController {
   Future<void> cancelOrder(String orderId) async {
     try {
       isLoading.value = true;
-      
+
       // Find the order
       int orderIndex = orders.indexWhere((order) => order.id == orderId);
       if (orderIndex == -1) {
-        Get.snackbar('Error', 'Order not found');
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(content: Text('Order not found')),
+        );
         return;
       }
 
       OrderModel order = orders[orderIndex];
-      
+
       // Check if order can be cancelled
       if (order.status != OrderStatus.pending) {
-        Get.snackbar(
-          'Cannot Cancel',
-          'Only pending orders can be cancelled',
-          backgroundColor: Colors.orange[100],
-          colorText: Colors.orange[800],
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text('Only pending orders can be cancelled',
+                style: TextStyle(color: Colors.orange[800])),
+            backgroundColor: Colors.orange[100],
+          ),
         );
         return;
       }
@@ -168,20 +176,27 @@ class CustomerOrdersController extends GetxController {
       );
 
       orders[orderIndex] = updatedOrder;
-      
-      Get.snackbar(
-        'Order Cancelled',
-        'Your order has been cancelled successfully',
-        backgroundColor: Colors.green[100],
-        colorText: Colors.green[800],
-        icon: Icon(Icons.check_circle, color: Colors.green[600]),
+
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.green[600]),
+              SizedBox(width: 12),
+              Text('Your order has been cancelled successfully',
+                  style: TextStyle(color: Colors.green[800])),
+            ],
+          ),
+          backgroundColor: Colors.green[100],
+        ),
       );
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to cancel order: $e',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to cancel order: $e',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
       );
     } finally {
       isLoading.value = false;

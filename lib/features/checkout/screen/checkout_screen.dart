@@ -89,16 +89,41 @@ class CheckoutScreen extends StatelessWidget {
                     // Go back from checkout screen
                     Get.back();
 
-                    Get.snackbar(
-                      'Continue Shopping! 🛍️',
-                      'Add items to your cart',
-                      backgroundColor: AppColors.primary.withOpacity(0.1),
-                      colorText: AppColors.primary,
-                      duration: Duration(seconds: 2),
-                      snackPosition: SnackPosition.BOTTOM,
-                      margin: EdgeInsets.all(16),
-                      borderRadius: 12,
-                      icon: Icon(Icons.shopping_cart, color: AppColors.primary),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Row(
+                          children: [
+                            Icon(Icons.shopping_cart, color: AppColors.primary),
+                            SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Continue Shopping! 🛍️',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Add items to your cart',
+                                    style: TextStyle(color: AppColors.primary),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        backgroundColor: AppColors.primary.withOpacity(0.1),
+                        duration: Duration(seconds: 2),
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     );
                   } catch (e) {
                     // Fallback: Just go back

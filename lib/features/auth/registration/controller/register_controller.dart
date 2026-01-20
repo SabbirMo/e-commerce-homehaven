@@ -66,7 +66,9 @@ class RegisterController extends GetxController {
       });
     } on FirebaseAuthException catch (e) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.snackbar('Error', e.message ?? 'Something went wrong');
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(content: Text(e.message ?? 'Something went wrong')),
+        );
       });
     } finally {
       isLoading = false;

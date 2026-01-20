@@ -71,22 +71,36 @@ class ProfileController extends GetxController {
         final File file = File(image.path);
         if (await file.exists()) {
           selectedImagePath.value = image.path;
-          Get.snackbar(
-            'Success',
-            'Image selected successfully!',
-            backgroundColor: Colors.green[100],
-            colorText: Colors.green[800],
-            duration: Duration(seconds: 2),
-            icon: Icon(Icons.check_circle, color: Colors.green[800]),
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.check_circle, color: Colors.green[800]),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Text('Image selected successfully!',
+                          style: TextStyle(color: Colors.green[800]))),
+                ],
+              ),
+              backgroundColor: Colors.green[100],
+              duration: Duration(seconds: 2),
+            ),
           );
         } else {
-          Get.snackbar(
-            'Error',
-            'Selected image could not be accessed',
-            backgroundColor: Colors.red[100],
-            colorText: Colors.red[800],
-            duration: Duration(seconds: 3),
-            icon: Icon(Icons.error, color: Colors.red[800]),
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.error, color: Colors.red[800]),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Text('Selected image could not be accessed',
+                          style: TextStyle(color: Colors.red[800]))),
+                ],
+              ),
+              backgroundColor: Colors.red[100],
+              duration: Duration(seconds: 3),
+            ),
           );
         }
       }
@@ -186,22 +200,36 @@ class ProfileController extends GetxController {
         final File file = File(image.path);
         if (await file.exists()) {
           selectedImagePath.value = image.path;
-          Get.snackbar(
-            'Success',
-            'Photo captured successfully!',
-            backgroundColor: Colors.green[100],
-            colorText: Colors.green[800],
-            duration: Duration(seconds: 2),
-            icon: Icon(Icons.check_circle, color: Colors.green[800]),
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.check_circle, color: Colors.green[800]),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Text('Photo captured successfully!',
+                          style: TextStyle(color: Colors.green[800]))),
+                ],
+              ),
+              backgroundColor: Colors.green[100],
+              duration: Duration(seconds: 2),
+            ),
           );
         } else {
-          Get.snackbar(
-            'Error',
-            'Captured photo could not be accessed',
-            backgroundColor: Colors.red[100],
-            colorText: Colors.red[800],
-            duration: Duration(seconds: 3),
-            icon: Icon(Icons.error, color: Colors.red[800]),
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.error, color: Colors.red[800]),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Text('Captured photo could not be accessed',
+                          style: TextStyle(color: Colors.red[800]))),
+                ],
+              ),
+              backgroundColor: Colors.red[100],
+              duration: Duration(seconds: 3),
+            ),
           );
         }
       }
@@ -319,14 +347,22 @@ class ProfileController extends GetxController {
                     () {
                       Get.back();
                       selectedImagePath.value = '';
-                      Get.snackbar(
-                        'Success',
-                        'Profile photo removed',
-                        backgroundColor: Colors.orange[100],
-                        colorText: Colors.orange[800],
-                        duration: Duration(seconds: 2),
-                        icon:
-                            Icon(Icons.check_circle, color: Colors.orange[800]),
+                      ScaffoldMessenger.of(Get.context!).showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            children: [
+                              Icon(Icons.check_circle,
+                                  color: Colors.orange[800]),
+                              SizedBox(width: 8),
+                              Expanded(
+                                  child: Text('Profile photo removed',
+                                      style: TextStyle(
+                                          color: Colors.orange[800]))),
+                            ],
+                          ),
+                          backgroundColor: Colors.orange[100],
+                          duration: Duration(seconds: 2),
+                        ),
                       );
                     },
                   ),
@@ -369,11 +405,12 @@ class ProfileController extends GetxController {
   // Update profile
   Future<void> updateProfile() async {
     if (nameController.text.trim().isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Please enter your name',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Please enter your name',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
       );
       return;
     }
@@ -392,11 +429,13 @@ class ProfileController extends GetxController {
         if (selectedImagePath.value.isNotEmpty) {
           // For now, we'll just show a success message
           // In production, implement image upload to Firebase Storage
-          Get.snackbar(
-            'Note',
-            'Image selected. In production, this would be uploaded to cloud storage.',
-            backgroundColor: Colors.blue[100],
-            colorText: Colors.blue[800],
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Text(
+                  'Image selected. In production, this would be uploaded to cloud storage.',
+                  style: TextStyle(color: Colors.blue[800])),
+              backgroundColor: Colors.blue[100],
+            ),
           );
         }
 
@@ -404,22 +443,24 @@ class ProfileController extends GetxController {
         await user.reload();
         currentUser.value = _auth.currentUser;
 
-        Get.snackbar(
-          'Success',
-          'Profile updated successfully!',
-          backgroundColor: Colors.green[100],
-          colorText: Colors.green[800],
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text('Profile updated successfully!',
+                style: TextStyle(color: Colors.green[800])),
+            backgroundColor: Colors.green[100],
+          ),
         );
 
         // Go back to profile screen
         Get.back();
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to update profile: ${e.toString()}',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update profile: ${e.toString()}',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
       );
     } finally {
       isLoading.value = false;

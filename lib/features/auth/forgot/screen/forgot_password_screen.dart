@@ -41,10 +41,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                           onTap: () {
                             if (emailController.text.isEmpty) {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                Get.snackbar(
-                                  "Error",
-                                  "Please fill the filed",
-                                  duration: Duration(seconds: 3),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Please fill the filed"),
+                                    duration: Duration(seconds: 3),
+                                  ),
                                 );
                               });
                               return;

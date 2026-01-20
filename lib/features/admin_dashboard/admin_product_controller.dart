@@ -65,7 +65,9 @@ class AdminProductController extends GetxController {
       activeProducts.value =
           allProducts.length; // Assuming all are active for now
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch products: $e');
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(content: Text('Failed to fetch products: $e')),
+      );
     } finally {
       isLoading.value = false;
     }
@@ -94,24 +96,24 @@ class AdminProductController extends GetxController {
         'createdAt': FieldValue.serverTimestamp(),
       });
 
-      Get.snackbar(
-        'Success',
-        'Product added successfully!',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Product added successfully!',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.green,
+        ),
       );
 
       clearForm();
       fetchProducts();
       Get.back();
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to add product: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to add product: $e',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+        ),
       );
     } finally {
       isLoading.value = false;
@@ -142,24 +144,24 @@ class AdminProductController extends GetxController {
         'updatedAt': FieldValue.serverTimestamp(),
       });
 
-      Get.snackbar(
-        'Success',
-        'Product updated successfully!',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Product updated successfully!',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.green,
+        ),
       );
 
       clearForm();
       fetchProducts();
       Get.back();
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to update product: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update product: $e',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+        ),
       );
     } finally {
       isLoading.value = false;
@@ -178,7 +180,9 @@ class AdminProductController extends GetxController {
       }
 
       if (productToDelete == null) {
-        Get.snackbar('Error', 'Product not found');
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(content: Text('Product not found')),
+        );
         return;
       }
 
@@ -190,22 +194,22 @@ class AdminProductController extends GetxController {
 
       await docRef.delete();
 
-      Get.snackbar(
-        'Success',
-        'Product deleted successfully!',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Product deleted successfully!',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.green,
+        ),
       );
 
       fetchProducts();
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to delete product: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to delete product: $e',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -213,8 +217,8 @@ class AdminProductController extends GetxController {
   void fillFormForEdit(HomeModel product) {
     titleController.text = product.title;
     imageController.text = product.image;
-    descriptionController.text = product.description ?? '';
-    regularPriceController.text = product.regularPrice ?? '';
+    descriptionController.text = product.description;
+    regularPriceController.text = product.regularPrice;
     offerPriceController.text = product.offerPrice ?? '';
     offPriceController.text = product.offPrice ?? '';
     ratingController.text = product.rating;
@@ -234,23 +238,23 @@ class AdminProductController extends GetxController {
 
   bool _validateForm() {
     if (titleController.text.trim().isEmpty) {
-      Get.snackbar(
-        'Validation Error',
-        'Please enter product title',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.orange,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Please enter product title',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.orange,
+        ),
       );
       return false;
     }
 
     if (imageController.text.trim().isEmpty) {
-      Get.snackbar(
-        'Validation Error',
-        'Please enter image URL',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.orange,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Please enter image URL',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.orange,
+        ),
       );
       return false;
     }

@@ -349,7 +349,7 @@ class OrdersManagementScreen extends StatelessWidget {
                               SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  '${item.name ?? 'Product'} (${item.color ?? 'Color'}) x${item.quantity}',
+                                  '${item.name} (${item.color}) x${item.quantity}',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.blue[700],

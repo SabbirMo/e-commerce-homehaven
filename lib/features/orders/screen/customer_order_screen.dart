@@ -35,12 +35,15 @@ class CustomerOrderScreen extends StatelessWidget {
             icon: Icon(Icons.refresh),
             onPressed: () {
               controller.fetchCustomerOrders();
-              Get.snackbar(
-                'Refreshing',
-                'Updating your orders...',
-                backgroundColor: Colors.blue[100],
-                colorText: Colors.blue[800],
-                duration: Duration(seconds: 2),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Updating your orders...',
+                    style: TextStyle(color: Colors.blue[800]),
+                  ),
+                  backgroundColor: Colors.blue[100],
+                  duration: Duration(seconds: 2),
+                ),
               );
             },
           ),
@@ -48,12 +51,15 @@ class CustomerOrderScreen extends StatelessWidget {
             icon: Icon(Icons.bug_report),
             onPressed: () {
               controller.debugFirebaseOrders();
-              Get.snackbar(
-                'Debug',
-                'Check console logs for Firebase debug info',
-                backgroundColor: Colors.purple[100],
-                colorText: Colors.purple[800],
-                duration: Duration(seconds: 3),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Check console logs for Firebase debug info',
+                    style: TextStyle(color: Colors.purple[800]),
+                  ),
+                  backgroundColor: Colors.purple[100],
+                  duration: Duration(seconds: 3),
+                ),
               );
             },
           ),
@@ -1055,16 +1061,41 @@ class CustomerOrderScreen extends StatelessWidget {
                     // Go back to main screen if needed
                     Get.back();
 
-                    Get.snackbar(
-                      'Happy Shopping! 🛍️',
-                      'Explore our products and place your first order',
-                      backgroundColor: AppColors.primary.withOpacity(0.1),
-                      colorText: AppColors.primary,
-                      duration: Duration(seconds: 2),
-                      snackPosition: SnackPosition.BOTTOM,
-                      margin: EdgeInsets.all(16),
-                      borderRadius: 12,
-                      icon: Icon(Icons.shopping_bag, color: AppColors.primary),
+                    ScaffoldMessenger.of(Get.context!).showSnackBar(
+                      SnackBar(
+                        content: Row(
+                          children: [
+                            Icon(Icons.shopping_bag, color: AppColors.primary),
+                            SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Happy Shopping! 🛍️',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Explore our products and place your first order',
+                                    style: TextStyle(color: AppColors.primary),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        backgroundColor: AppColors.primary.withOpacity(0.1),
+                        duration: Duration(seconds: 2),
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     );
                   } catch (e) {
                     // Fallback: Navigate to main screen

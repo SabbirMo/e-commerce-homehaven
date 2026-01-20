@@ -137,21 +137,34 @@ class ProfileScreen extends StatelessWidget {
                   Icons.notifications_rounded,
                   'Notifications',
                   'Manage notification settings',
-                  () => Get.snackbar(
-                      'Coming Soon', 'Notification settings coming soon!'),
+                  () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Notification settings coming soon!'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  ),
                 ),
                 _buildMenuItem(
                   Icons.security_rounded,
                   'Security',
                   'Password and security settings',
-                  () => Get.snackbar(
-                      'Coming Soon', 'Security settings coming soon!'),
+                  () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Security settings coming soon!'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  ),
                 ),
                 _buildMenuItem(
                   Icons.help_rounded,
                   'Help & Support',
                   'Get help and contact support',
-                  () => Get.snackbar('Coming Soon', 'Help center coming soon!'),
+                  () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Help center coming soon!'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  ),
                 ),
               ]),
 

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_haven/core/assets/app_colors.dart';
 import 'package:home_haven/features/home/model/home_model.dart';
-import 'package:home_haven/features/onboarding/widget/custom_button.dart';
 import 'package:home_haven/features/cart/controller/cart_controller.dart';
 import 'package:home_haven/features/cart/my_cart_screen.dart';
 import 'package:home_haven/features/wishlist/controller/wishlist_controller.dart';
@@ -214,7 +213,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           Padding(
                             padding: EdgeInsets.only(top: 4),
                             child: Text(
-                              widget.product.regularPrice!.replaceAll('"', ''),
+                              widget.product.regularPrice.replaceAll('"', ''),
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],

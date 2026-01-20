@@ -147,16 +147,41 @@ class WishlistScreen extends StatelessWidget {
                   navController.changeTab(0); // Switch to home tab
                   Get.back();
 
-                  Get.snackbar(
-                    'Happy Shopping! 🛍️',
-                    'Find products you love and add them to wishlist',
-                    backgroundColor: AppColors.primary.withOpacity(0.1),
-                    colorText: AppColors.primary,
-                    duration: Duration(seconds: 2),
-                    snackPosition: SnackPosition.BOTTOM,
-                    margin: EdgeInsets.all(16),
-                    borderRadius: 12,
-                    icon: Icon(Icons.favorite, color: AppColors.primary),
+                  ScaffoldMessenger.of(Get.context!).showSnackBar(
+                    SnackBar(
+                      content: Row(
+                        children: [
+                          Icon(Icons.favorite, color: AppColors.primary),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Happy Shopping! 🛍️',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                                Text(
+                                  'Find products you love and add them to wishlist',
+                                  style: TextStyle(color: AppColors.primary),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: AppColors.primary.withOpacity(0.1),
+                      duration: Duration(seconds: 2),
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.all(16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                   );
                 } catch (e) {
                   // Fallback: Navigate to main screen

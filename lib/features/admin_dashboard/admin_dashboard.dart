@@ -36,12 +36,15 @@ class AdminDashboard extends StatelessWidget {
             icon: Icon(Icons.refresh),
             onPressed: () {
               ordersController.fetchOrders();
-              Get.snackbar(
-                'Refreshing',
-                'Updating order statistics...',
-                backgroundColor: Colors.blue[100],
-                colorText: Colors.blue[800],
-                duration: Duration(seconds: 2),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Updating order statistics...',
+                    style: TextStyle(color: Colors.blue[800]),
+                  ),
+                  backgroundColor: Colors.blue[100],
+                  duration: Duration(seconds: 2),
+                ),
               );
             },
           ),
@@ -413,13 +416,23 @@ class AdminDashboard extends StatelessWidget {
               );
 
               // Show success message
-              Get.snackbar(
-                '✅ Order Approved',
-                'Order #${order.id.substring(0, 8)} has been approved successfully!',
-                backgroundColor: Colors.green[100],
-                colorText: Colors.green[800],
-                duration: Duration(seconds: 3),
-                icon: Icon(Icons.check_circle, color: Colors.green),
+              ScaffoldMessenger.of(Get.context!).showSnackBar(
+                SnackBar(
+                  content: Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.green),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Order #${order.id.substring(0, 8)} has been approved successfully!',
+                          style: TextStyle(color: Colors.green[800]),
+                        ),
+                      ),
+                    ],
+                  ),
+                  backgroundColor: Colors.green[100],
+                  duration: Duration(seconds: 3),
+                ),
               );
             },
             icon: Icon(Icons.check_circle, color: Colors.white),
@@ -813,11 +826,14 @@ class AdminDashboard extends StatelessWidget {
               subtitle: Text('Manage notification preferences'),
               onTap: () {
                 Get.back();
-                Get.snackbar(
-                  'Info',
-                  'Notification settings coming soon!',
-                  backgroundColor: Colors.blue[100],
-                  colorText: Colors.blue[800],
+                ScaffoldMessenger.of(Get.context!).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Notification settings coming soon!',
+                      style: TextStyle(color: Colors.blue[800]),
+                    ),
+                    backgroundColor: Colors.blue[100],
+                  ),
                 );
               },
             ),
@@ -827,11 +843,14 @@ class AdminDashboard extends StatelessWidget {
               subtitle: Text('Change password and security settings'),
               onTap: () {
                 Get.back();
-                Get.snackbar(
-                  'Info',
-                  'Security settings coming soon!',
-                  backgroundColor: Colors.blue[100],
-                  colorText: Colors.blue[800],
+                ScaffoldMessenger.of(Get.context!).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Security settings coming soon!',
+                      style: TextStyle(color: Colors.blue[800]),
+                    ),
+                    backgroundColor: Colors.blue[100],
+                  ),
                 );
               },
             ),
@@ -841,11 +860,14 @@ class AdminDashboard extends StatelessWidget {
               subtitle: Text('Get help and contact support'),
               onTap: () {
                 Get.back();
-                Get.snackbar(
-                  'Info',
-                  'Help & Support coming soon!',
-                  backgroundColor: Colors.blue[100],
-                  colorText: Colors.blue[800],
+                ScaffoldMessenger.of(Get.context!).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Help & Support coming soon!',
+                      style: TextStyle(color: Colors.blue[800]),
+                    ),
+                    backgroundColor: Colors.blue[100],
+                  ),
                 );
               },
             ),

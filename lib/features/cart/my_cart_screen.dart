@@ -124,16 +124,41 @@ class MyCartScreen extends StatelessWidget {
                     Get.back();
                   }
 
-                  Get.snackbar(
-                    'Let\'s Shop! 🛍️',
-                    'Browse our amazing products',
-                    backgroundColor: AppColors.primary.withOpacity(0.1),
-                    colorText: AppColors.primary,
-                    duration: Duration(seconds: 2),
-                    snackPosition: SnackPosition.BOTTOM,
-                    margin: EdgeInsets.all(16),
-                    borderRadius: 12,
-                    icon: Icon(Icons.shopping_bag, color: AppColors.primary),
+                  ScaffoldMessenger.of(Get.context!).showSnackBar(
+                    SnackBar(
+                      content: Row(
+                        children: [
+                          Icon(Icons.shopping_bag, color: AppColors.primary),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Let\'s Shop!',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                                Text(
+                                  'Browse our amazing products',
+                                  style: TextStyle(color: AppColors.primary),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: AppColors.primary.withOpacity(0.1),
+                      duration: Duration(seconds: 2),
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.all(16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                   );
                 } catch (e) {
                   // Fallback: Navigate to main screen with bottom navigation
@@ -348,12 +373,16 @@ class MyCartScreen extends StatelessWidget {
                         onPressed: () {
                           controller.removeFromCart(item.id, item.color);
                           Get.back();
-                          Get.snackbar(
-                            'Removed',
-                            '${item.name.replaceAll('"', '')} removed from cart',
-                            duration: Duration(seconds: 2),
-                            backgroundColor: Colors.red[100],
-                            colorText: Colors.red[800],
+                          ScaffoldMessenger.of(Get.context!).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                '${item.name.replaceAll('"', '')} removed from cart',
+                                style: TextStyle(color: Colors.red[800]),
+                              ),
+                              backgroundColor: Colors.red[100],
+                              duration: Duration(seconds: 2),
+                              behavior: SnackBarBehavior.floating,
+                            ),
                           );
                         },
                         child:

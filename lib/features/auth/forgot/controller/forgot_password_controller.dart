@@ -12,7 +12,9 @@ class ForgotPasswordController extends GetxController {
     try {
       if (email.isEmpty) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Get.snackbar('Error', 'Please enter your email');
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(content: Text('Please enter your email')),
+          );
         });
         return;
       }
@@ -23,11 +25,16 @@ class ForgotPasswordController extends GetxController {
       await _auth.sendPasswordResetEmail(email: email);
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.snackbar('Success', 'Password reset email sent. Check your inbox.');
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+              content: Text('Password reset email sent. Check your inbox.')),
+        );
       });
     } on FirebaseAuthException catch (e) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.snackbar('Error', e.message ?? 'Something went wrong');
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(content: Text(e.message ?? 'Something went wrong')),
+        );
       });
     } finally {
       isLoading = false;

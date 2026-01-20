@@ -25,8 +25,13 @@ class CustomerOrderController extends GetxController {
 
       final user = _auth.currentUser;
       if (user == null) {
-        Get.snackbar('Authentication Error', 'Please log in first',
-            backgroundColor: Colors.red[100], colorText: Colors.red[800]);
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text('Please log in first',
+                style: TextStyle(color: Colors.red[800])),
+            backgroundColor: Colors.red[100],
+          ),
+        );
         return;
       }
 
@@ -53,8 +58,13 @@ class CustomerOrderController extends GetxController {
 
               orders.add(order);
             } catch (e) {
-              Get.snackbar('Error', 'Failed to fetch orders: ${e.toString()}',
-                  backgroundColor: Colors.red[100], colorText: Colors.red[800]);
+              ScaffoldMessenger.of(Get.context!).showSnackBar(
+                SnackBar(
+                  content: Text('Failed to fetch orders: ${e.toString()}',
+                      style: TextStyle(color: Colors.red[800])),
+                  backgroundColor: Colors.red[100],
+                ),
+              );
               return;
             }
           }
@@ -86,8 +96,13 @@ class CustomerOrderController extends GetxController {
         }
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch orders: ${e.toString()}',
-          backgroundColor: Colors.red[100], colorText: Colors.red[800]);
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to fetch orders: ${e.toString()}',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
+      );
     } finally {
       isLoading.value = false;
     }
@@ -111,11 +126,21 @@ class CustomerOrderController extends GetxController {
         );
       }
 
-      Get.snackbar('Success', 'Order cancelled',
-          backgroundColor: Colors.orange[100], colorText: Colors.orange[800]);
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Order cancelled',
+              style: TextStyle(color: Colors.orange[800])),
+          backgroundColor: Colors.orange[100],
+        ),
+      );
     } catch (e) {
-      Get.snackbar('Error', 'Failed to cancel order',
-          backgroundColor: Colors.red[100], colorText: Colors.red[800]);
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to cancel order',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
+      );
     } finally {
       isLoading.value = false;
     }
@@ -145,16 +170,22 @@ class CustomerOrderController extends GetxController {
         );
       }
 
-      Get.snackbar(
-        'Success',
-        'Order restored and placed again',
-        backgroundColor: Colors.green[100],
-        colorText: Colors.green[800],
-        duration: Duration(seconds: 3),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Order restored and placed again',
+              style: TextStyle(color: Colors.green[800])),
+          backgroundColor: Colors.green[100],
+          duration: Duration(seconds: 3),
+        ),
       );
     } catch (e) {
-      Get.snackbar('Error', 'Failed to restore order: ${e.toString()}',
-          backgroundColor: Colors.red[100], colorText: Colors.red[800]);
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to restore order: ${e.toString()}',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
+      );
     } finally {
       isLoading.value = false;
     }
@@ -235,8 +266,13 @@ class CustomerOrderController extends GetxController {
         debugPrint('📋 Orders for current user: ${userOrders.docs.length}');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to debug Firebase orders: ${e.toString()}',
-          backgroundColor: Colors.red[100], colorText: Colors.red[800]);
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to debug Firebase orders: ${e.toString()}',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
+      );
     }
   }
 }

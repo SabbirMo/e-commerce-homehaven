@@ -76,12 +76,20 @@ class GoogleAuthController extends GetxController {
           Get.offAllNamed(RouterConstant.homeScreen);
         }
 
-        if (!silent) Get.snackbar('Success', 'Login Successful with Google');
+        if (!silent) {
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(content: Text('Login Successful with Google')),
+          );
+        }
       }
     } on FirebaseAuthException catch (e) {
-      Get.snackbar('Error', e.message ?? 'Something went wrong');
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(content: Text(e.message ?? 'Something went wrong')),
+      );
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
     } finally {
       isLoading = false;
       update();

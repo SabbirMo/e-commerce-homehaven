@@ -91,15 +91,23 @@ class RegisterScreen extends StatelessWidget {
                                 passwordController.text.isEmpty ||
                                 confirmPasswordController.text.isEmpty) {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                Get.snackbar("Error", "Please fill all field",
-                                    duration: Duration(seconds: 4));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Please fill all field"),
+                                    duration: Duration(seconds: 4),
+                                  ),
+                                );
                               });
                               return;
                             } else if (passwordController.text !=
                                 confirmPasswordController.text) {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                Get.snackbar("Error", "Password don't match",
-                                    duration: Duration(seconds: 4));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Password don't match"),
+                                    duration: Duration(seconds: 4),
+                                  ),
+                                );
                               });
                               return;
                             }

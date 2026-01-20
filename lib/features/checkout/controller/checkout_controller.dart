@@ -93,11 +93,13 @@ class CheckoutController extends GetxController {
       }
     } catch (e) {
       print('Error fetching user data: $e');
-      Get.snackbar(
-        'Warning',
-        'Could not load user information. Please fill the form manually.',
-        backgroundColor: Colors.orange,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Could not load user information. Please fill the form manually.',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.orange,
+        ),
       );
     } finally {
       isLoadingUserData.value = false;
@@ -193,21 +195,23 @@ class CheckoutController extends GetxController {
     // Check if cart is empty
     final cartController = Get.find<CartController>();
     if (cartController.cartItems.isEmpty) {
-      Get.snackbar(
-        'Cart Empty',
-        'Please add items to your cart before checkout',
-        backgroundColor: Colors.orange,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Please add items to your cart before checkout',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.orange,
+        ),
       );
       return;
     }
 
     if (!formKey.currentState!.validate()) {
-      Get.snackbar(
-        'Error',
-        'Please fill in all required fields correctly',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Please fill in all required fields correctly',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+        ),
       );
       return;
     }
@@ -235,12 +239,13 @@ class CheckoutController extends GetxController {
       // Note: Already retrieved above for validation
 
       // Show loading state and process order
-      Get.snackbar(
-        'Processing Order',
-        'Please wait while we process your order...',
-        backgroundColor: Colors.blue,
-        colorText: Colors.white,
-        duration: Duration(seconds: 2),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Please wait while we process your order...',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.blue,
+          duration: Duration(seconds: 2),
+        ),
       );
 
       // Simulate order processing delay
@@ -250,12 +255,14 @@ class CheckoutController extends GetxController {
       String orderId =
           await _createOrderInFirebase(checkoutData, cartController);
 
-      Get.snackbar(
-        'Order Placed Successfully!',
-        'Your order #${orderId.substring(0, 8)} has been placed and will be delivered soon',
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-        duration: Duration(seconds: 3),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Your order #${orderId.substring(0, 8)} has been placed and will be delivered soon',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 3),
+        ),
       );
 
       // Clear cart after successful order
@@ -274,12 +281,14 @@ class CheckoutController extends GetxController {
       }
     } catch (e) {
       print('Error in processOrder: $e');
-      Get.snackbar(
-        'Error',
-        'Failed to process order: ${e.toString()}. Please try again.',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        duration: Duration(seconds: 4),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Failed to process order: ${e.toString()}. Please try again.',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 4),
+        ),
       );
     } finally {
       isProcessingOrder.value = false;

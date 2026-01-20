@@ -34,11 +34,12 @@ class OrdersController extends GetxController {
               }))
           .toList();
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to fetch orders: $e',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to fetch orders: $e',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
       );
     } finally {
       isLoading.value = false;
@@ -92,20 +93,22 @@ class OrdersController extends GetxController {
 
       // Show success message with next steps
       String successMessage = _getStatusUpdateMessage(newStatus);
-      Get.snackbar(
-        '✅ Status Updated',
-        successMessage,
-        backgroundColor: Colors.green[100],
-        colorText: Colors.green[800],
-        duration: Duration(seconds: 4),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content:
+              Text(successMessage, style: TextStyle(color: Colors.green[800])),
+          backgroundColor: Colors.green[100],
+          duration: Duration(seconds: 4),
+        ),
       );
     } catch (e) {
-      Get.snackbar(
-        ' Update Failed',
-        'Failed to update order status: ${e.toString()}',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
-        duration: Duration(seconds: 4),
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update order status: ${e.toString()}',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+          duration: Duration(seconds: 4),
+        ),
       );
     } finally {
       isLoading.value = false;

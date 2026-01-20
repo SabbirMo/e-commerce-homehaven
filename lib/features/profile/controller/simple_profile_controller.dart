@@ -135,18 +135,25 @@ class SimpleProfileController extends GetxController {
               selectedImagePath.value = image.path;
 
               // Show success message
-              Get.snackbar(
-                'Success! ✅',
-                'Image selected successfully',
-                backgroundColor: Colors.green[50],
-                colorText: Colors.green[800],
-                borderColor: Colors.green[300],
-                borderWidth: 1,
-                duration: Duration(seconds: 2),
-                icon: Icon(Icons.check_circle, color: Colors.green[700]),
-                snackPosition: SnackPosition.BOTTOM,
-                margin: EdgeInsets.all(16),
-                borderRadius: 12,
+              ScaffoldMessenger.of(Get.context!).showSnackBar(
+                SnackBar(
+                  content: Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.green[700]),
+                      SizedBox(width: 8),
+                      Expanded(
+                          child: Text('Image selected successfully',
+                              style: TextStyle(color: Colors.green[800]))),
+                    ],
+                  ),
+                  backgroundColor: Colors.green[50],
+                  duration: Duration(seconds: 2),
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(color: Colors.green[300]!, width: 1)),
+                ),
               );
             } else {
               throw Exception('Selected file is empty');
@@ -156,34 +163,49 @@ class SimpleProfileController extends GetxController {
           }
         } catch (fileError) {
           print('File verification error: $fileError');
-          Get.snackbar(
-            'File Error',
-            'Selected image file could not be accessed. Please try again.',
-            backgroundColor: Colors.orange[50],
-            colorText: Colors.orange[800],
-            borderColor: Colors.orange[300],
-            borderWidth: 1,
-            duration: Duration(seconds: 3),
-            icon: Icon(Icons.warning, color: Colors.orange[700]),
-            snackPosition: SnackPosition.BOTTOM,
-            margin: EdgeInsets.all(16),
-            borderRadius: 12,
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.warning, color: Colors.orange[700]),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Text(
+                          'Selected image file could not be accessed. Please try again.',
+                          style: TextStyle(color: Colors.orange[800]))),
+                ],
+              ),
+              backgroundColor: Colors.orange[50],
+              duration: Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(color: Colors.orange[300]!, width: 1)),
+            ),
           );
         }
       } else {
         // User cancelled - show gentle message
-        Get.snackbar(
-          'No Image Selected',
-          'You can try again anytime',
-          backgroundColor: Colors.grey[50],
-          colorText: Colors.grey[700],
-          borderColor: Colors.grey[300],
-          borderWidth: 1,
-          duration: Duration(seconds: 1),
-          icon: Icon(Icons.info_outline, color: Colors.grey[600]),
-          snackPosition: SnackPosition.BOTTOM,
-          margin: EdgeInsets.all(16),
-          borderRadius: 12,
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Icon(Icons.info_outline, color: Colors.grey[600]),
+                SizedBox(width: 8),
+                Expanded(
+                    child: Text('You can try again anytime',
+                        style: TextStyle(color: Colors.grey[700]))),
+              ],
+            ),
+            backgroundColor: Colors.grey[50],
+            duration: Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(color: Colors.grey[300]!, width: 1)),
+          ),
         );
       }
     } catch (e) {
@@ -459,18 +481,25 @@ class SimpleProfileController extends GetxController {
             if (fileSize > 0) {
               selectedImagePath.value = image.path;
 
-              Get.snackbar(
-                'Success! 📷',
-                'Photo captured successfully',
-                backgroundColor: Colors.green[50],
-                colorText: Colors.green[800],
-                borderColor: Colors.green[300],
-                borderWidth: 1,
-                duration: Duration(seconds: 2),
-                icon: Icon(Icons.camera_alt, color: Colors.green[700]),
-                snackPosition: SnackPosition.BOTTOM,
-                margin: EdgeInsets.all(16),
-                borderRadius: 12,
+              ScaffoldMessenger.of(Get.context!).showSnackBar(
+                SnackBar(
+                  content: Row(
+                    children: [
+                      Icon(Icons.camera_alt, color: Colors.green[700]),
+                      SizedBox(width: 8),
+                      Expanded(
+                          child: Text('Photo captured successfully',
+                              style: TextStyle(color: Colors.green[800]))),
+                    ],
+                  ),
+                  backgroundColor: Colors.green[50],
+                  duration: Duration(seconds: 2),
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(color: Colors.green[300]!, width: 1)),
+                ),
               );
             } else {
               throw Exception('Captured photo is empty');
@@ -480,34 +509,42 @@ class SimpleProfileController extends GetxController {
           }
         } catch (fileError) {
           print('Photo file error: $fileError');
-          Get.snackbar(
-            'Photo Error',
-            'Captured photo could not be processed. Please try again.',
-            backgroundColor: Colors.orange[50],
-            colorText: Colors.orange[800],
-            borderColor: Colors.orange[300],
-            borderWidth: 1,
-            duration: Duration(seconds: 3),
-            icon: Icon(Icons.warning, color: Colors.orange[700]),
-            snackPosition: SnackPosition.BOTTOM,
-            margin: EdgeInsets.all(16),
-            borderRadius: 12,
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.warning, color: Colors.orange[700]),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Text(
+                          'Captured photo could not be processed. Please try again.',
+                          style: TextStyle(color: Colors.orange[800]))),
+                ],
+              ),
+              backgroundColor: Colors.orange[50],
+              duration: Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(color: Colors.orange[300]!, width: 1)),
+            ),
           );
         }
       } else {
         // User cancelled camera
-        Get.snackbar(
-          'Photo Cancelled',
-          'No photo was taken',
-          backgroundColor: Colors.grey[50],
-          colorText: Colors.grey[700],
-          borderColor: Colors.grey[300],
-          borderWidth: 1,
-          duration: Duration(seconds: 1),
-          icon: Icon(Icons.info_outline, color: Colors.grey[600]),
-          snackPosition: SnackPosition.BOTTOM,
-          margin: EdgeInsets.all(16),
-          borderRadius: 12,
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text('No photo was taken',
+                style: TextStyle(color: Colors.grey[700])),
+            backgroundColor: Colors.grey[50],
+            duration: Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(color: Colors.grey[300]!, width: 1)),
+          ),
         );
       }
     } catch (e) {
@@ -718,12 +755,13 @@ class SimpleProfileController extends GetxController {
                     () {
                       Get.back();
                       selectedImagePath.value = '';
-                      Get.snackbar(
-                        'Success',
-                        'Profile photo removed',
-                        backgroundColor: Colors.orange[100],
-                        colorText: Colors.orange[800],
-                        duration: Duration(seconds: 2),
+                      ScaffoldMessenger.of(Get.context!).showSnackBar(
+                        SnackBar(
+                          content: Text('Profile photo removed',
+                              style: TextStyle(color: Colors.orange[800])),
+                          backgroundColor: Colors.orange[100],
+                          duration: Duration(seconds: 2),
+                        ),
                       );
                     },
                   ),
@@ -766,11 +804,12 @@ class SimpleProfileController extends GetxController {
   // Update profile
   Future<void> updateProfile() async {
     if (nameController.text.trim().isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Please enter your name',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Please enter your name',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
       );
       return;
     }
@@ -787,23 +826,31 @@ class SimpleProfileController extends GetxController {
         await user.reload();
         currentUser.value = _auth.currentUser;
 
-        Get.snackbar(
-          'Success',
-          'Profile updated successfully!',
-          backgroundColor: Colors.green[100],
-          colorText: Colors.green[800],
-          icon: Icon(Icons.check_circle, color: Colors.green[800]),
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Icon(Icons.check_circle, color: Colors.green[800]),
+                SizedBox(width: 8),
+                Expanded(
+                    child: Text('Profile updated successfully!',
+                        style: TextStyle(color: Colors.green[800]))),
+              ],
+            ),
+            backgroundColor: Colors.green[100],
+          ),
         );
 
         // Go back to profile screen
         Get.back();
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to update profile: ${e.toString()}',
-        backgroundColor: Colors.red[100],
-        colorText: Colors.red[800],
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update profile: ${e.toString()}',
+              style: TextStyle(color: Colors.red[800])),
+          backgroundColor: Colors.red[100],
+        ),
       );
     } finally {
       isLoading.value = false;
